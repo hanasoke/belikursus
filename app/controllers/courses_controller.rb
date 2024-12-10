@@ -41,6 +41,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: "Course was successfully updated." }
         format.json { render :show, status: :ok, location: @course }
       else
+        # puts "EROORRRR >> #{@course.errors.full_messages}"
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
