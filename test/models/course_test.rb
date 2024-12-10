@@ -2,7 +2,7 @@ require "test_helper"
 
 class CourseTest < ActiveSupport::TestCase
   fixtures :courses
-  
+
   test 'course attributes should not be empty' do
     course = Course.new
     assert course.invalid?
@@ -21,5 +21,21 @@ class CourseTest < ActiveSupport::TestCase
 
     course.price = 1
     assert course.valid?
+  end
+
+  # add test for image_url, only accept png/jpg/jpeg
+
+  test "title should be unique" do 
+    course = Course.new(
+      title: courses(:ruby).title,
+      description: "desc",
+      image_url: "ruby.png",
+      price: 10
+    )
+
+    assert course.invalid?
+    assert_equal?(["has already been taken"], course.errors[:title])
+    # assert_equal ["has already been taken"], course.errors[:title]
+
   end
 end
